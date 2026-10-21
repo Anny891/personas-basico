@@ -1,6 +1,7 @@
 
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -11,23 +12,15 @@ import { FormsModule } from '@angular/forms';
 export class LoginComponet {
   usuario = '';
   clave = '';
-  sesionIniciada = false;
+
+  constructor(private router: Router) {}
 
   iniciarSesion() {
     if (this.usuario === 'admin' && this.clave === '123456') {
       localStorage.setItem('sesionBasica', 'si');
-      this.sesionIniciada = true;
-      this.clave = '';
+      this.router.navigate(['/persona']);
     } else {
       alert('Usuario o contraseña incorrectos');
     }
   }
-
-  cerrarSesion() {
-    localStorage.removeItem('sesionBasica');
-    this.sesionIniciada = false;
-    this.usuario = '';
-    this.clave = '';
-  }
 }
-
